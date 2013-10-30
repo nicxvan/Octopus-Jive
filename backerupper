@@ -1,0 +1,20 @@
+#! /bin/bash
+# For pulling all the pieces together
+# mysqlbackup serveruser 111.111.111.111 mysqluser /var/www/mysqlbackup && filesyncer serveruser 111.111.111.111 /var/www/vhosts backup/rsync/serveridentifier && archiver tmp/local rsync/local perm/archive
+# backerupper serveruser 111.111.111.111 mysqluser /var/www/mysqlbackup /var/www/vhosts/ backup/rsync backup/tmp backup/archive/perm
+
+SERVERUSER=$1
+SERVERIP=$2
+MYSQL_USER=$3
+MYSQL_BACKUP=$4
+REMOTE_DIR=$5
+LOCAL_RSYNC=$6
+LOCAL_TMP_TAR=$7
+LOCAL_PERM_ARCHIVE=$8
+
+CMD1="./mysqlbackup"
+CMD2="./filersync"
+CMD3="./archiver"
+CMDPART1="&&"
+
+$CMD1 $SERVERUSER $SERVERIP $MYSQL_USER $MYSQL_BACKUP $CMDPART1 $CMD2 $SERVERUSER $SERVERIP $REMOTE_DIR $LOCAL_RSYNC $CMDPART1 $CMD3 $LOCAL_TMP_ARCHIVE $LOCAL_RSYNC $LOCAL_PERM_ARCHIVE

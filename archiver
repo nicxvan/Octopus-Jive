@@ -1,0 +1,20 @@
+#! /bin/bash
+# For archiving the files
+# archiver /backups/tmp/serveridentifier backups/rsync/serveridentifier g:/backups/archive/serveridentifier
+
+LOCALRSYNCBACKUP=$1
+ARCHIVEDIR=$2
+FINALDESTINATION=$3
+TIMESTAMP=$(date +"%F")
+
+CMDPART1="tar -cvpzf "
+CMDPART2=".tar.gz "
+CMDPART3="mv "
+CMDPART4=" "
+
+
+command=$CMDPART1$ARCHIVEDIR$CMDPART2$LOCALRSYNCBACKUP
+command2=$CMDPART3$ARCHIVEDIR$CMDPART2$CMDPART4$FINALDESTINATION$TIMESTAMP$CMDPART2
+
+$command
+$command2
